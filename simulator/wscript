@@ -1,0 +1,124 @@
+#! /usr/bin/env python
+
+import os, platform, glob
+
+def options(o):
+	# to see options type 'waf --help'
+	o.load('compiler_cxx')
+	o.add_option('--enable-debug', action='store_true', default=False,
+		help='Enable debugging support (Default=False)')
+	o.add_option('--disable-boost', action='store_true', default=True,
+		help='Disable Boost (Default=True)')
+	o.add_option('--enable-opengl', action='store_true', default=True,
+		help='Enable OpenGL (Default=True)')
+	o.add_option('--enable-wiimote', action='store_true', default=False,
+		help='Enable Wiimote (Default=False)')
+	o.add_option('--enable-logging', action='store_true', default=True,
+		help='Enable Logging (Default=True)')
+
+def configure(c):
+
+	# check for CXX compiler
+	c.load('compiler_cxx')
+	
+	# set base CXX flags and defines
+	if c.options.enable_debug: 
+		c.env.append_value('CXXFLAGS', ['-pipe', '-fPIC', '-g'])
+	else: 
+		c.env.append_value('CXXFLAGS', ['-pipe', '-fPIC', '-O3'])
+
+	# detect os
+	system = platform.system()
+	bits = platform.architecture()[0]
+	if system == 'Linux' and bits == '32bit': osname = 'linux'
+	elif system == 'Linux' and bits == '64bit': osname = 'linux64'
+	else: 
+		osname = 'osx'
+		c.env.append_value('DEFINES','MACOS')
+
+	c.env.append_value('DEFINES','ENABLE_LOGGING=1')
+	if not c.options.enable_logging:
+		c.env.append_value('DEFINES','ENABLE_LOGGING=0')
+
+	# build list of shepherding include directories
+	cwd = os.getcwd()
+	sh_base = os.path.join(cwd, 'src')
+	sh_subdirs = ['', 'environment', 'environment/model', 'simulator', 'gui', 'gui/GL', 'util', 'prms', 'gui/modelgraph']
+	for sh_sub in sh_subdirs:
+		c.env.append_value('INCLUDES_shepherding', os.path.join(sh_base,sh_sub))
+
+	# build list of behaviors include directories
+	c.env['SOURCE_behavior'] = []
+	b_base = os.path.join(cwd, 'behaviors.c')
+	b_subdirs = ['', 'better_herding', 'deform_herding', 'manual_herding', 'movable_obstacle', 'multi_herding', 'simple_herding']
+	for b_sub in b_subdirs:
+		c.env.append_value('INCLUDES_behaviors', os.path.join(b_base, b_sub))
+		c.env['SOURCE_behavior'].extend(glob.glob('behaviors.c/'+b_sub + '/*.cpp'))
+	c.env.append_value('DEFINES_behaviors', 'DRAW_EXTRA=0')
+
+	# boost is used in behaviors for wiimote stuff. 
+	if c.options.disable_boost:
+		# boost is disabled
+		c.env.append_value('DEFINES_behaviors',['USE_WIIMOTE=0', 'NO_BOOST=1'])
+	else:
+		# boost is enabled, add it to behaviors
+		c.env.append_value('DEFINES_behaviors', 'NO_BOOST=0')
+		c.env.append_value('INCLUDES_behaviors', os.path.join(b_base, 'server_client_interface'))
+		c.env['SOURCE_behavior'].extend(glob.glob('behaviors.c/server_client_interface/*.cpp'))
+		c.env.append_value('INCLUDES_behaviors', '/usr/include/boost')
+		c.env.append_value('LIB_behaviors', ['boost_thread', 'boost_system'])
+		if c.options.enable_wiimote:
+			c.env.append_value('DEFINES_behaviors','USE_WIIMOTE=1')
+			c.env.append_value('INCLUDES_behaviors', 'libs/wiimote/wiiuse')
+			c.env.append_value('LIBPATH_behaviors', 'libs/wiimote/wiiuse')
+			c.env.append_value('LIB_behaviors', 'wiiuse')
+
+	# gl and x libraries
+	if c.options.enable_opengl:
+		c.env.append_value('DEFINES','GL_ON=1')
+		if osname == 'osx':
+			c.env['LINKFLAGS_gl'] = ['-framework %s' % i 
+				for i in ['OpenGL', 'GLUT', 'Foundation', 'Carbon', 'AGL']]
+			c.env.append_value('LIBPATH_gl', '/usr/local/lib')
+		else:
+			c.env['LIB_gl'] = ['glut', 'GLU', 'GL', 'm', 'Xext', 'X11', 'Xt']
+			c.env.append_value('LIBPATH_gl', '/usr/X11R6/lib /usr/local/lib')
+			c.env.append_value('RPATH_gl', '/usr/X11R6/lib')
+			c.env['DEFINES_gl'].append('GL_GLEXT_PROTOTYPES=1')
+	else:
+		c.env.append_value('DEFINES','GL_ON=0')
+
+	# glew
+	c.env['LIBPATH_glew'] = os.path.join(cwd, 'libs/glew/lib')
+	c.env['LIB_glew'] = 'GLEW.' + osname
+	c.env['INCLUDES_glew'] = [os.path.join(cwd, 'libs/glew/include')]
+
+	# rapid
+	c.env['LIBPATH_rapid'] = os.path.join(cwd, 'libs/RAPID')
+	c.env['LIB_rapid'] = 'RAPID.' + osname
+	c.env['INCLUDES_rapid'] = [os.path.join(cwd, 'libs/RAPID')]
+
+def build(b):
+
+	# build libshepherd
+	b.stlib(target='shepherd',
+		source=b.path.ant_glob('src/**/*.cpp'),
+		use='shepherding gl glew rapid')
+
+	# build libbehavior
+	b.stlib(target='behavior',
+		source = b.env.SOURCE_behavior,
+		use='shepherding behaviors gl glew rapid')
+
+	# what happens when you do 'waf install'
+	start_dir = b.path.find_dir('src')
+	b.install_files('release/include/base', 
+		start_dir.ant_glob('**/*.h'), 
+		cwd=start_dir,
+		relative_trick=True)
+	start_dir = b.path.find_dir('behaviors.c')
+	b.install_files('release/include/behaviors', 
+		start_dir.ant_glob('**/*.h'), 
+		cwd=start_dir,
+		relative_trick=True)
+	b.install_files('release/lib', b.bldnode.ant_glob('*.a'))

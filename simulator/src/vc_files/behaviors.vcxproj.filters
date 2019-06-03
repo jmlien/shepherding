@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="simple_herding">
+      <UniqueIdentifier>{2cedeaaa-310b-48c8-a885-6ca0cc62c16d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="better_herding">
+      <UniqueIdentifier>{12d4bf94-4dfa-4be9-97f9-0858560fd327}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="deform_herding">
+      <UniqueIdentifier>{4e5ebce7-8493-4e51-8db8-dacf17a1471d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="manual_herding">
+      <UniqueIdentifier>{9b88e400-5e35-4498-b555-4b65abc94bc5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="multi_herding">
+      <UniqueIdentifier>{cf4f71eb-f10f-4c7b-b294-c37c8b7b7750}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="movable_obstacle">
+      <UniqueIdentifier>{51d2cf3a-4485-4459-94f4-b14d633e0888}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="xbox">
+      <UniqueIdentifier>{ad8607e5-66d0-44ba-84fa-0b51e9512393}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\behaviors.c\herding_flock.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\behaviors.c\herding_goal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\behaviors.c\shepherding.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\behaviors.c\shepherding_behaviors.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\behaviors.c\shepherding_gui.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\behaviors.c\ws_parser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\behaviors.c\ZeroForceRule.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\behaviors.c\simple_herding\scared_flock.h">
+      <Filter>simple_herding</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\behaviors.c\simple_herding\simple_herding.h">
+      <Filter>simple_herding</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\behaviors.c\simple_herding\simple_herding_draw.h">
+      <Filter>simple_herding</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\behaviors.c\simple_herding\simple_herding_draw_ext.h">
+      <Filter>simple_herding</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\behaviors.c\simple_herding\simple_herding_rules.h">
+      <Filter>simple_herding</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\behaviors.c\better_herding\better_herding_rules.h">
+      <Filter>better_herding</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\behaviors.c\better_herding\shepherdLocomotion.h">
+      <Filter>better_herding</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\behaviors.c\better_herding\better_herding.h">
+      <Filter>better_herding</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\behaviors.c\deform_herding\deform_herding.h">
+      <Filter>deform_herding</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\behaviors.c\deform_herding\dh_grid.h">
+      <Filter>deform_herding</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\behaviors.c\deform_herding\dh_rules.h">
+      <Filter>deform_herding</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\behaviors.c\manual_herding\manual_herding_rules.h">
+      <Filter>manual_herding</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\behaviors.c\multi_herding\multi_herding_rules.h">
+      <Filter>multi_herding</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\behaviors.c\multi_herding\pickSteeringPos.h">
+      <Filter>multi_herding</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\behaviors.c\multi_herding\shepherdFormation.h">
+      <Filter>multi_herding</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\behaviors.c\multi_herding\distributeShepherds.h">
+      <Filter>multi_herding</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\behaviors.c\multi_herding\multi_herding.h">
+      <Filter>multi_herding</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\behaviors.c\movable_obstacle\intersection.h">
+      <Filter>movable_obstacle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\behaviors.c\movable_obstacle\movable_obstacle.h">
+      <Filter>movable_obstacle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\xbox\CXBOXController.h">
+      <Filter>xbox</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\behaviors.c\herding_goal.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\behaviors.c\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\behaviors.c\shepherding.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\behaviors.c\shepherding_gui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\behaviors.c\ws_parser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\behaviors.c\simple_herding\simple_herding.cpp">
+      <Filter>simple_herding</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\behaviors.c\simple_herding\simple_herding_rules.cpp">
+      <Filter>simple_herding</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\behaviors.c\simple_herding\scared_flock.cpp">
+      <Filter>simple_herding</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\behaviors.c\better_herding\better_herding_rules.cpp">
+      <Filter>better_herding</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\behaviors.c\better_herding\better_herding.cpp">
+      <Filter>better_herding</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\behaviors.c\deform_herding\dh_rules.cpp">
+      <Filter>deform_herding</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\behaviors.c\deform_herding\deform_herding.cpp">
+      <Filter>deform_herding</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\behaviors.c\multi_herding\pickSteeringPos.cpp">
+      <Filter>multi_herding</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\behaviors.c\multi_herding\multi_herding.cpp">
+      <Filter>multi_herding</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\behaviors.c\multi_herding\multi_herding_rules.cpp">
+      <Filter>multi_herding</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\behaviors.c\movable_obstacle\intersection.cpp">
+      <Filter>movable_obstacle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\xbox\CXBOXController.cpp">
+      <Filter>xbox</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\behaviors.c\manual_herding\manual_herding_rules.cpp">
+      <Filter>manual_herding</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

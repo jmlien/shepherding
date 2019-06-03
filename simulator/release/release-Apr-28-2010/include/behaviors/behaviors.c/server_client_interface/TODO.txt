@@ -1,0 +1,3 @@
+2008-06-25
+    * - Add code for mutexes
+    * - Collision detection: stop short of obstacles

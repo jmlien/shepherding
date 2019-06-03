@@ -1,0 +1,26 @@
+#---------------------------------------------------------------------
+# DIRS
+#---------------------------------------------------------------------
+
+INCL_SH_SUB_DIRS= -I$(SH_DIR)/include/base \
+                  -I$(SH_DIR)/include/base/behaviors \
+                  -I$(SH_DIR)/include/base/composable \
+                  -I$(SH_DIR)/include/base/gui \
+                  -I$(SH_DIR)/include/base/prms \
+				  -I$(SH_DIR)/include/base/util \
+				  -I$(SH_DIR)/include/base/collisiondectection \
+			      -I$(SH_DIR)/include/base/environment \
+				  -I$(SH_DIR)/include/base/no_gui \
+				  -I$(SH_DIR)/include/base/simulator
+
+INCL_BH_SUB_DIRS= -I$(SH_DIR)/include/behaviors \
+                  -I$(SH_DIR)/include/behaviors/balanced_herding \
+				  -I$(SH_DIR)/include/behaviors/better_herding \
+				  -I$(SH_DIR)/include/behaviors/manual_herding \
+				  -I$(SH_DIR)/include/behaviors/multi_herding \
+				  -I$(SH_DIR)/include/behaviors/basicflock \
+				  -I$(SH_DIR)/include/behaviors/simple_herding \
+				  -I$(SH_DIR)/include/behaviors/deform_herding \
+				  -I$(SH_DIR)/include/behaviors/server_client_interface
+
+

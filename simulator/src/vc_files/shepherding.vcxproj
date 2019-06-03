@@ -1,0 +1,271 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{808F85F3-302B-4674-B5F2-9843C044EA6C}</ProjectGuid>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v120</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v120</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>12.0.21005.1</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>.\Debug\</OutDir>
+    <IntDir>.\Debug\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+    <TargetName>$(ProjectName)_d</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>.\Release\</OutDir>
+    <IntDir>.\Release\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Midl>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\Debug/shepherd.tlb</TypeLibraryName>
+      <HeaderFileName />
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>/Zm1000  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>$(BOOSTROOT);..;../../libs/RAPID;../prms;../simulator;../gui;../environment;../util/;../gui/modelgraph;../../libs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>ENABLE_LOGGING=0;GL_ON=1;DRAW_EXTRA;_DEBUG;WIN32;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeaderOutputFile>.\Debug/shepherd.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\Debug/</AssemblerListingLocation>
+      <ObjectFileName>.\Debug/</ObjectFileName>
+      <ProgramDataBaseFileName>.\Debug/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>Winmm.lib;glut32.lib;RAPID.lib;glu32.lib;opengl32.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>Debug\shepherd.exe</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>..\..\libs\GL;..\..\libs\gsl\lib;..\..\libs\RAPID;$(BOOSTROOT)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>LIBC;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>.\Debug/shepherd.pdb</ProgramDatabaseFile>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention />
+      <ImportLibrary>.\Debug/shepherd.lib</ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\Debug/shepherd.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\Release/shepherd.tlb</TypeLibraryName>
+      <HeaderFileName />
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>/Zm1000  %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <AdditionalIncludeDirectories>$(BOOSTROOT);..;../../libs/RAPID;../prms;../simulator;../gui;../environment;../util/;../gui/modelgraph;../../libs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>USE_WIIMOTE=0;ENABLE_LOGGING=0;GL_ON=1;DRAW_EXTRA;NDEBUG;WIN32;_WINDOWS;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeaderOutputFile>.\Release/shepherd.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\Release/</AssemblerListingLocation>
+      <ObjectFileName>.\Release/</ObjectFileName>
+      <ProgramDataBaseFileName>.\Release/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>Winmm.lib;WinGslLib_m.lib;glut32.lib;RAPID.lib;glu32.lib;opengl32.lib;odbc32.lib;odbccp32.lib;wiiuse.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>..\..\examples\shepherd.exe</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>..\..\libs\RAPID;..\..\libs\GSL\libs;$(BOOSTROOT)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>LIBC;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ProgramDatabaseFile>.\Release/shepherd.pdb</ProgramDatabaseFile>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention />
+      <ImportLibrary>.\Release/shepherd.lib</ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\Release/shepherd.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\environment\model\ModelFactory.cpp" />
+    <ClCompile Include="..\environment\model\ModelTool.cpp" />
+    <ClCompile Include="..\environment\model\MovieBYULoader.cpp" />
+    <ClCompile Include="..\environment\model\ObjLoader.cpp" />
+    <ClCompile Include="..\environment\sh_BoundingBox.cpp" />
+    <ClCompile Include="..\environment\sh_CollisionDetection.cpp" />
+    <ClCompile Include="..\environment\sh_Environment.cpp" />
+    <ClCompile Include="..\environment\sh_Obs2D.cpp" />
+    <ClCompile Include="..\environment\sh_PolyhedronModel.cpp" />
+    <ClCompile Include="..\environment\sh_Robot2D.cpp" />
+    <ClCompile Include="..\gui\GL\gli.cpp" />
+    <ClCompile Include="..\gui\GL\gliDump.cpp" />
+    <ClCompile Include="..\gui\GL\gliFont.cpp" />
+    <ClCompile Include="..\gui\GL\gliTexture.cpp" />
+    <ClCompile Include="..\gui\GL\gl_draw.cpp" />
+    <ClCompile Include="..\gui\GL\gl_draw_bbx.cpp" />
+    <ClCompile Include="..\gui\GL\gl_draw_coverage.cpp" />
+    <ClCompile Include="..\gui\GL\gl_draw_env.cpp" />
+    <ClCompile Include="..\gui\GL\gl_draw_flock.cpp" />
+    <ClCompile Include="..\gui\GL\gl_draw_map.cpp" />
+    <ClCompile Include="..\gui\GL\gl_draw_obst.cpp" />
+    <ClCompile Include="..\gui\GL\gl_draw_path.cpp" />
+    <ClCompile Include="..\gui\GL\gl_draw_PolyhedronModel.cpp" />
+    <ClCompile Include="..\gui\GL\shadowMap_glsl.cpp" />
+    <ClCompile Include="..\gui\modelgraph\ModelEdge.cpp" />
+    <ClCompile Include="..\gui\modelgraph\ModelGraph.cpp" />
+    <ClCompile Include="..\gui\modelgraph\ModelNode.cpp" />
+    <ClCompile Include="..\gui\sh_sim_GL.cpp" />
+    <ClCompile Include="..\sh_sim.cpp" />
+    <ClCompile Include="..\simulator\sh_FlockState.cpp" />
+    <ClCompile Include="..\simulator\sh_ForceRules.cpp" />
+    <ClCompile Include="..\simulator\sh_LocalInfo.cpp" />
+    <ClCompile Include="..\simulator\sh_ObstState.cpp" />
+    <ClCompile Include="..\simulator\sh_ParticleSolver.cpp" />
+    <ClCompile Include="..\prms\sh_dyPRM.cpp" />
+    <ClCompile Include="..\prms\sh_Graph.cpp" />
+    <ClCompile Include="..\prms\sh_PRM.cpp" />
+    <ClCompile Include="..\prms\sh_Roadmap.cpp" />
+    <ClCompile Include="..\util\Basic.cpp" />
+    <ClCompile Include="..\util\Gauss.cpp" />
+    <ClCompile Include="..\util\logger.cpp" />
+    <ClCompile Include="..\util\mersenne.cpp" />
+    <ClCompile Include="..\util\mother.cpp" />
+    <ClCompile Include="..\util\Quaternion.cpp" />
+    <ClCompile Include="..\util\sh_FlockFunc.cpp" />
+    <ClCompile Include="..\util\stoc1.cpp" />
+    <ClCompile Include="..\util\stoc2.cpp" />
+    <ClCompile Include="..\util\stoc3.cpp" />
+    <ClCompile Include="..\util\userintf.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\environment\model\ILoadable.h" />
+    <ClInclude Include="..\environment\model\IModel.h" />
+    <ClInclude Include="..\environment\model\ModelFactory.h" />
+    <ClInclude Include="..\environment\model\ModelTool.h" />
+    <ClInclude Include="..\environment\model\MovieBYULoader.h" />
+    <ClInclude Include="..\environment\model\MovieBYUSaver.h" />
+    <ClInclude Include="..\environment\model\ObjLoader.h" />
+    <ClInclude Include="..\environment\sh_BoundingBox.h" />
+    <ClInclude Include="..\environment\sh_CollisionDetection.h" />
+    <ClInclude Include="..\environment\sh_Environment.h" />
+    <ClInclude Include="..\environment\sh_Obs2D.h" />
+    <ClInclude Include="..\environment\sh_PolyhedronModel.h" />
+    <ClInclude Include="..\environment\sh_Robot2D.h" />
+    <ClInclude Include="..\gui\GL\gli.h" />
+    <ClInclude Include="..\gui\GL\gliDump.h" />
+    <ClInclude Include="..\gui\GL\gliFont.h" />
+    <ClInclude Include="..\gui\GL\gliTexture.h" />
+    <ClInclude Include="..\gui\GL\gl_draw.h" />
+    <ClInclude Include="..\gui\GL\gl_draw_bbx.h" />
+    <ClInclude Include="..\gui\GL\gl_draw_coverage.h" />
+    <ClInclude Include="..\gui\GL\gl_draw_env.h" />
+    <ClInclude Include="..\gui\GL\gl_draw_flock.h" />
+    <ClInclude Include="..\gui\GL\gl_draw_map.h" />
+    <ClInclude Include="..\gui\GL\gl_draw_obst.h" />
+    <ClInclude Include="..\gui\GL\gl_draw_path.h" />
+    <ClInclude Include="..\gui\GL\gl_draw_PolyhedronModel.h" />
+    <ClInclude Include="..\gui\GL\shadowMap_glsl.h" />
+    <ClInclude Include="..\gui\modelgraph\ModelEdge.h" />
+    <ClInclude Include="..\gui\modelgraph\ModelGraph.h" />
+    <ClInclude Include="..\gui\modelgraph\ModelNode.h" />
+    <ClInclude Include="..\gui\sh_drawclass.h" />
+    <ClInclude Include="..\gui\sh_sim_GL.h" />
+    <ClInclude Include="..\shepherding_base.h" />
+    <ClInclude Include="..\sh_sim.h" />
+    <ClInclude Include="..\simulator\sh_BehaviorRules.h" />
+    <ClInclude Include="..\simulator\sh_FlockState.h" />
+    <ClInclude Include="..\simulator\sh_ForceRules.h" />
+    <ClInclude Include="..\simulator\sh_LocalInfo.h" />
+    <ClInclude Include="..\simulator\sh_MapBasedFlockState.h" />
+    <ClInclude Include="..\simulator\sh_ObstState.h" />
+    <ClInclude Include="..\simulator\sh_ParticleSolver.h" />
+    <ClInclude Include="..\prms\sh_dyPRM.h" />
+    <ClInclude Include="..\prms\sh_Graph.h" />
+    <ClInclude Include="..\prms\sh_PRM.h" />
+    <ClInclude Include="..\prms\sh_Roadmap.h" />
+    <ClInclude Include="..\prms\graph\BaseGraph.h" />
+    <ClInclude Include="..\prms\graph\BasicDefns.h" />
+    <ClInclude Include="..\prms\graph\Defines.h" />
+    <ClInclude Include="..\prms\graph\Graph.h" />
+    <ClInclude Include="..\prms\graph\GraphAlgo.h" />
+    <ClInclude Include="..\util\Basic.h" />
+    <ClInclude Include="..\util\Gauss.h" />
+    <ClInclude Include="..\util\gettime.h" />
+    <ClInclude Include="..\util\logger.h" />
+    <ClInclude Include="..\util\Matrix.h" />
+    <ClInclude Include="..\util\Point.h" />
+    <ClInclude Include="..\util\Quaternion.h" />
+    <ClInclude Include="..\util\randomc.h" />
+    <ClInclude Include="..\util\RNG.h" />
+    <ClInclude Include="..\util\sh_FlockFunc.h" />
+    <ClInclude Include="..\util\stocc.h" />
+    <ClInclude Include="..\util\Vector.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\gui\GL\shadowMap.frag" />
+    <None Include="..\gui\GL\shadowMap.vert" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

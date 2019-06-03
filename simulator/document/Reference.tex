@@ -1,0 +1,895 @@
+\documentclass[onecolumn,10pt]{article}
+
+\usepackage{psfig}
+\pagestyle{plain}
+%\usepackage{indentfirst}
+\renewcommand{\baselinestretch}{1.0}
+\renewcommand{\textfraction}{0}
+\def\thefootnote{\fnsymbol{footnote}}
+\pagestyle{plain}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Alg  and Math Package
+\usepackage{algorithmic}
+\usepackage[section]{algorithm}
+\usepackage{amssymb}
+\usepackage{amsopn}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%set dimensions of columns, gap between columns, and space between paragraphs
+\setlength{\textheight}{8.75in}
+\setlength{\columnsep}{2.0pc}
+\setlength{\textwidth}{6.8in}
+\setlength{\topmargin}{0.25in}
+\setlength{\headheight}{0.0in}
+\setlength{\headsep}{0.0in}
+\setlength{\oddsidemargin}{-.19in}
+\setlength{\parindent}{1pc}
+
+%I copied stuff out of art10.sty and modified them to conform to IEEE format
+\makeatletter
+%as LaTeX considers descenders in its calculation of interline spacing,
+%to get 12 point spacing for normalsize text, must set it to 10 points
+\def\@normalsize{\@setsize\normalsize{12pt}\xpt\@xpt
+\abovedisplayskip 10pt plus2pt minus5pt\belowdisplayskip \abovedisplayskip
+\abovedisplayshortskip \z@ plus3pt\belowdisplayshortskip 6pt plus3pt
+minus3pt\let\@listi\@listI}
+
+%need an 11 pt font size for subsection and abstract headings
+\def\subsize{\@setsize\subsize{12pt}\xipt\@xipt}
+\makeatother
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Title Page
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{titlepage}
+\begin{center}
+
+\topskip 2.in
+{\Large\bf Paraosl Flocking System Reference Manual}
+
+\vspace{0.5in}
+\vspace{1.5in}
+\centerline{by}
+\vspace{1in}
+\centerline{Jyh-Ming Lien}
+\centerline{neilien@cs.tamu.edu}
+\vspace{0.2in}
+
+\centerline{Parasol Lab.}
+\centerline{Texas A\&M University}
+\vspace{0.5in}
+\today
+%\centerline{2003}
+
+\end{center}
+\end{titlepage}
+
+\def\thefootnote{\arabic{footnote}}
+\setcounter{footnote}{0}
+\def\thefootnote{\arabic{footnote}}
+
+
+\tableofcontents
+%%\addcontentsline{toc}{none}{\null \hspace{-2em}CHAPTER }% {\null}
+%\listoftables
+%\listoffigures
+\clearpage
+
+\section{Introduction}
+
+This file gives a brief description of classes and 
+functions provided by this library.
+
+%#####################################################################
+
+Note that functions may be overloaded or with default values given.
+If default values are given, they are enclosed in ``['' and ``]''.
+
+\section{Install the Library}
+
+\subsection{Install from the binaries}
+
+\subsubsection{Windows}
+
+Assume that you have the library installed in a directory called C:/shepherd.
+You will need to have following dlls and put them in a place that can be 
+found, e.g., somewhere in \$PATH.
+
+\begin{enumerate}
+\item install Python 2.2.3 (which is the version that current library linked to)
+\item qt-mt230nc.dll (Qt version 2.3) or glut32.dll
+\item stlport\_vc645.dll
+\item boost\_python.dll
+\item shepherd.pyd
+\item msdev.dll?
+\end{enumerate}
+
+Then, you will have to define an environment variable as:\\
+{\bf PYTHONPATH = C:/shepherd; C:/shepherd/behaviors}
+
+\subsubsection{Linux}
+not yet.
+
+\subsection{Install from the source}
+not yet.
+
+\subsubsection{Windows}
+not yet.
+
+\subsubsection{Linux}
+not yet.
+
+\section{Examples of Using the Library}
+not yet.
+
+\subsection{What is inside the behavior directory}
+not yet.
+
+\subsection{What libraries should be included in the script}
+not yet.
+
+\subsection{A "framework" of a flocking program}
+not yet.
+
+\subsection{Examples}
+not yet.
+
+%#-------------------------------------------------------------------
+%# System Functions
+%#-------------------------------------------------------------------
+
+\section{System Functions}
+
+The following list contains {\em system} functions that are exposed to users at 
+the global scope and are used to control the basic functions of the flocking system. \\
+
+%\begin{table}[ht]
+\begin{tabular}{|l|l|}\hline
+{\bf start}(void)                       & Start simulation \\\hline
+{\bf stop}(void)                        & Stop simulation \\\hline
+{\bf setTimeStep}(double s)             & Set simulation time step\\\hline
+int {\bf getCurrentTimeStep}(void)      & Get current simulation time\\\hline
+{\bf setConvertFile}(string filename)   & Set the location of the ``convert'' program which will \\
+                                        & convert ppm file to other image formats\\\hline
+{\bf setRestitution}(double $r$)        & Bouncing restitution ($0 \le r \le 1$). $r=0$ means object will not bounce \\
+                                        & after it hits obstacles. $r=1$ means object will perfectly ``reflect'' \\
+				        &  after hitting. \\\hline
+{\bf setEnvironment}(Environment\&)     & Set an environment object to the system. See Section~\ref{sec:env}. \\\hline
+Environment\& {\bf getEnvironment}(void)& Get environment object. See Section~\ref{sec:env}. \\\hline				
+\end{tabular}
+%\end{table}
+
+%#-------------------------------------------------------------------
+%# Environmental Classes
+%#-------------------------------------------------------------------
+
+\section{Environmental Classes}
+\label{sec:env}
+
+%#-------------------------------------------------------------------
+\subsection{Class: Environment}
+
+\subsubsection*{$\star$ Constructor}
+
+{\bf Environment}(void)
+
+\subsubsection*{$\star$ Member Functions}
+
+%\begin{table}[ht]
+\begin{tabular}{|l|l|}\hline
+{\bf setBBX}   &  \\   %# 
+        (double min\_x, double max\_x,    &  Set bounding box of the environment. XZ plane is the ground. \\
+        double min\_y, double max\_y,     &  Y direction does not really affect the simulation. \\
+	double min\_z, double max\_z )    &  \\\hline
+{\bf addFlock}(Flock\&)                   & Add a flock (group) to the environment. \\\hline
+{\bf addObstacle}(Obs\&)                  & Add an obstacle (group) to the environment.\\\hline
+list$<$Obs$>$\& {\bf getObstacles}()          & get a list of added obstacles from the environment.\\\hline
+{\bf setGroudTexture}(string\& texture)    & set a texture to the ground.\\\hline
+\end{tabular}
+%\end{table}
+
+%#-------------------------------------------------------------------
+\subsection{Class: Flock}
+
+\subsubsection*{$\star$ Constructor}
+
+%\begin{table}[ht]
+\begin{tabular}{|l|l|}\hline
+{\bf Flock}                               & \\
+(string\& geo\_file, [int size=50]) & geo\_file is a file name of *.g (byu) or *.obj (wavefront)\\
+                                    & if geo\_file is in the form of name\#\#\#\#.g \\
+				    & The library will look for files name0000.g \\
+				    & to name9999.g for a canned animation. \\
+                                    & [size] is used to reserve space for contained flock states \\\hline
+\end{tabular}
+%\end{table}
+
+\subsubsection*{$\star$ Member Functions}
+
+%\begin{table}[ht]
+\begin{tabular}{|l|l|}\hline
+void {\bf addState}(FlockState\&)                  & \\\hline
+FlockState\& {\bf getState}(int)                   & get i-th state\\\hline
+vector$<$FlockState\&$>$\& {\bf getStates}(void)   &  get all states\\\hline
+int {\bf getStateSize}(void)                       &  number of states\\\hline
+{\bf deployFlock}(Environment\&,                   &  deploy the flock\\
+            const Point2d\& pos,                   & $\leftarrow$ center \\
+	    double dev,                            & $\leftarrow$ deviation \\
+            {[}double vm=1,                        & $\leftarrow$  velocity magnitude \\
+	    Vector2d dir=Vector2d(0,0){]})         & facing direction \\\hline\hline
+{\bf setColor}(double r,double g,double b)         & set color, R,G,B \\\hline
+{\bf setScale}(float s)                            & scale the geometry in all x,y,z direction. \\\hline
+{\bf setTexture}(string filename)                  & set texture\\\hline
+int {\bf getID}(void)                              & get the unique id of the flock \\\hline
+{\bf setAnimationStepSize}(float size)             & \\\hline\hline
+{\bf setForceRule}(ForceRule\&)          & \\\hline
+ForceRule\& {\bf  getForceRule}(void)         & \\\hline
+BehaviorRule\& {\bf getBehaviorRule}(void)  & \\\hline
+{\bf setBehaviorRule}(BehaviorRule\&)   & \\\hline
+\end{tabular}
+%\end{table}	
+
+\subsubsection*{$\star$ Data Members}
+
+%\begin{table}[ht]
+\begin{tabular}{|l|l|}\hline
+double Mass        & The mass of all flock members \\\hline
+double ViewRadius  & The view range (radius) of all flock members \\\hline
+double ViewAngle   & The view angle of all flock members \\\hline
+\end{tabular}
+%\end{table}
+
+%#-------------------------------------------------------------------
+\subsection{Class: Obs}
+
+\subsubsection*{$\star$ Constructor}
+
+%\begin{table}[ht]
+\begin{tabular}{|l|l|}\hline
+{\bf Obs}
+(string\& filename, int size)   & the filename of *.g file, size is the number \\
+                                 & of obstacles \\\hline
+\end{tabular}
+%\end{table}
+
+\subsubsection*{$\star$ Member Functions}
+
+%\begin{table}[ht]
+\begin{tabular}{|l|l|} \hline
+ObsState\& {\bf getState}(int i)  & get the $i$-th obstacle state \\\hline
+int {\bf getStateSize}(void)          & get the number of the obstacles of thie type\\\hline
+bool {\bf buildGLModel}(void)         & build GL model. Normally this is called \\
+                                      & when the obstacle is added to the env. \\
+			              & Sometimes, we don't want to add obst to \\
+ 			              & env, e.g., at the beginning of the simulation. \\
+			              & This function must be called in order to visualize it \\\hline
+\end{tabular}
+%\end{table}
+
+%#-------------------------------------------------------------------
+%# Simulation Classes
+%#-------------------------------------------------------------------
+\section{Simulation Classes}
+
+
+%#-------------------------------------------------------------------
+%# Global Function
+\subsection{Global Functions Related to These Classes}
+
+\begin{tabular}{|l|}\hline\\
+bool {\bf isVisible}(FlockState\& $s_1$,FlockState\& $s_2$, [Environment\& env]) \\\\
+check if $s_1$ can see $s_2$ or not \\
+if env is given, visibility checking will include the environment \\
+otherwise, environment is not taken into consideration. \\\hline\hline\\
+
+bool {\bf isVisible}(FlockState\& $s_1$, const Point2d\& pt, [Environment\& env]) \\\\
+check if $s_1$ can see pt or not\\
+if env is given, visibility checking will include the environment\\
+otherwise, environment is not taken into consideration.\\\hline\hline\\
+
+list$<$ list$<$FlockState\&$>$ $>$ {\bf getGroups}(list$<$FlockState\&$>$, [Environment\& env]) \\\\
+getGroup gives a list of "groups" according to their visibility.\\
+In each group, a flock member must be able to see one or more flock \\
+member in the same group. if env is given, visibility checking will  \\
+include the environment otherwise, environment is not taken into consideration.\\\hline
+
+
+list$<$ list$<$FlockState\&$>$ $>$ {\bf getGroups\_CA}(list$<$FlockState\&$>$, [float scale, Environment\& env]) \\\\
+getGroup\_CA gives a list of "groups" according to the concept of a safe zone.\\
+if env is given, visibility checking will include the environment otherwise,\\
+environment is not taken into consideration.\\\hline
+
+\end{tabular}
+
+%#-------------------------------------------------------------------
+\subsection{Class: FlockState}
+\subsubsection*{$\star$ Constructor}
+%\begin{table}[ht]
+\begin{tabular}{|l|l|}\hline
+{\bf FlockState}(Flock\& flock) &  flock=what kind of flock it is \\\hline
+\end{tabular}
+%%\end{table}
+
+\subsubsection*{$\star$ Member Functions}  
+
+\begin{tabular}{|l|l|}\hline
+{\bf setPos}(const Point2d\&)         & \\\hline
+const  Point2d\& {\bf getPos}(void)         &\\\hline
+{\bf setVelocity}(const Vector2d\&)    &\\\hline
+const Vector2d\& {\bf getVelocity}(void)   &\\\hline
+Flock\& {\bf  getType}(void)                &  what kind of flock this is\\\hline
+int {\bf getID}(void)                      &  an unique id in all states\\\hline\hline
+CBehaviorRule\& {\bf getBehaviorRule}(void)&  get the behavior rule associated with state\\\hline
+{\bf setBehaviorRule}(CBehaviorRule\&)     &  associate the behavior rule with state\\\hline
+ForceRule\& {\bf getForceRule}()           &  get assigned force rule\\\hline
+{\bf setForceRule}(ForceRule)              &  assign a force rule\\\hline
+\end{tabular}
+
+\begin{tabular}{|l|l|}\hline
+bool {\bf seeObstalce}(void)               &  return yes if an obs is in the front\\\hline
+const Point2d\& {\bf getVisibleObstPt}     &   the closest point on the visible obst\\\hline
+const Vector2d\& {\bf getVisibleObstN}(void)   & the (outward) normal of the closet point\\\hline
+list$<$FlockState\&$>$ {\bf getVisibleAgent}   & get all visible agent states\\\hline
+{\bf setVisibleAgent}(list$<$FlockState\&$>$)  & set visible flock members\\\hline
+Vector2d {\bf getFacingDir}(void)             &  get the heading direction of the member\\\hline\hline
+
+{\bf setColor}( double r, double g, double b ) & set the color of the agent \\\hline
+Point3d\& {\bf getColor}()                      & get the agent's color \\\hline
+{\bf setScale}( float s )                       & scale the agent \\\hline
+float {\bf setScale}()                          & get the agent's scale \\\hline
+
+\end{tabular}
+
+%#-------------------------------------------------------------------
+\subsection{Class: MapFlockState}
+\subsubsection*{$\star$ Constructor}
+\begin{tabular}{l|l}
+{\bf MapFlockState} : FlockState  & derive from FlockState flock and roadmap \\
+(Flock\&,RoadMap\&)        & 
+\end{tabular}
+
+\subsubsection*{$\star$ Member Functions}
+
+\begin{tabular}{l|l}
+list$<$Point2d\&$>$\& getGoals(void) & \\\hline
+pushGoal(Point2d\&)              & push into stack\\\hline
+void popGoal(void)                   & pop the top of the stack \\\hline
+Point2d\& peepGoal(void)             & view the top of the stack \\\hline
+bool isGoalEmpty(void)               & yes if nothing in the stack \\\hline
+list$<$NodeData\&$>$ getMems(void)  & a list of visited nodes \\\hline
+pushMem(NodeData\&) & \\\hline
+void popMem(void)       & \\\hline
+NodeData\& peepMem(void)& \\\hline
+bool isMemEmpty(void)   & \\\hline
+RoadMap\& getMap(void)  & retrieve the map 
+\end{tabular}
+
+%#-------------------------------------------------------------------
+\subsection{Class: ObstState}
+\subsubsection*{$\star$ Constructor}
+\begin{tabular}{l|l}
+{\bf ObstState}(void) & can't be created in python get it from Obs' getState
+\end{tabular}
+
+\subsubsection*{$\star$ Member Functions}
+
+\begin{tabular}{l|l}
+{\bf setPos}(Point2d\& pos)                 &       \\\hline
+{\bf setRot}(double degree)                 & 0~360 \\\hline
+{\bf setColor}(double r, double g, double b)& R,G,B \\\hline
+{\bf setTexture}(string name) & 
+\end{tabular}
+
+%#-------------------------------------------------------------------
+\subsection{Class: ForceRule}
+\subsubsection*{$\star$ Constructor}
+\begin{tabular}{l|l}
+ForceRule   & abstract class \\
+(void)
+\end{tabular}
+
+\subsubsection*{$\star$ Member Functions}
+
+\begin{tabular}{l|l}
+Vector2d getForce(FlockState\&)  & not implemented
+\end{tabular}
+
+%#-------------------------------------------------------------------
+\subsection{Class: BasicForceRule}
+
+\subsubsection*{$\star$ Constructor}
+\begin{tabular}{l|l}
+BasicForceRule : ForceRule      & derive from ForceRule
+(void)                        
+\end{tabular}
+
+\subsubsection*{$\star$ Member Functions}
+
+\begin{tabular}{l|l}
+Vector2d getForce(FlockState\&) & implement basic flocking forces
+\end{tabular}
+
+\subsubsection*{$\star$ Data Members}
+
+\begin{tabular}{l|l}
+double Cohesion     &  flocking coefficients \\\hline
+double Separation & \\\hline
+double Alignment & \\\hline
+double ObstRepulsion & \\\hline
+double MaxForce &  \\\hline
+double Damping & 
+\end{tabular}
+
+%#-------------------------------------------------------------------
+\subsection{Class: BehaviorRule}
+
+\subsubsection*{$\star$ Constructor}
+\begin{tabular}{l|l}
+BehaviorRule & abstract class
+(void)
+\end{tabular}
+
+\subsubsection*{$\star$ Member Functions}
+
+\begin{tabular}{l|l}
+void applyRule(FlockState\&) & 
+\end{tabular}
+
+%#-------------------------------------------------------------------
+%# PRM Classes
+%#-------------------------------------------------------------------
+\section{PRM Classes}
+%#-------------------------------------------------------------------
+\subsection{Class: RoadMap}
+
+\subsubsection*{$\star$ Constructor}
+\begin{tabular}{l|l}
+RoadMap             & Flock : the Flock used to generate this map \\
+(Flock\&,int n)    & n: the reserved space of storing nodes 
+\end{tabular}
+
+\subsubsection*{$\star$ Member Functions}
+
+\begin{tabular}{l|l}
+NodeData\& getNode(int id)           & get node with id \\\hline
+int getNodeSize(void)                    & number of nodes in the map \\\hline
+addEdge(NodeData\& n1, NodeData\& n2) & connect nodes n1 and n2 \\\hline
+addEdge(int id1, int id2)            & connect nodes with id1 and id2
+\end{tabular}
+	
+%#-------------------------------------------------------------------
+\subsection{Class: NodeData}
+(not tested yet)
+
+\subsubsection*{$\star$ Constructor}
+\begin{tabular}{l|l}
+NodeData           & map node\\
+(const Point2d\&)
+\end{tabular}
+
+\subsubsection*{$\star$ Member Functions}
+
+\begin{tabular}{l|l}
+void changeWeight(CNodeData\& to,double d)    & incr/decr edge weight \\\hline
+NodeData\& getRandSuccessor(CNodeData\& from) & get random nodes\\\hline
+int getID(void) & \\\hline
+Point2d\& getPos(void) &
+\end{tabular}
+
+%#-------------------------------------------------------------------
+\subsection{Class: PRMs}
+
+\subsubsection*{$\star$ Constructor}
+\begin{tabular}{l|l}
+PRMs                 & \\
+(Environment\&)
+\end{tabular}
+
+\subsubsection*{$\star$ Member Functions}
+
+\begin{tabular}{l|l}
+sampleMAPRMNodes(RoadMap\&,int n,[float s=0])   & sample n MAPRM nodes \\
+                                                 & s is required space between \\
+						 & sampled nodes. \\\hline
+						 
+sampleOBPRMNodes(RoadMap\&,int n,[float s=0])   & sample n OBPRM nodes \\
+                                                 & s is required space between \\
+						 & sampled nodes. \\\hline
+sampleOBPRMNodes\_on\_Obst & \\						 
+(CObs\&,RoadMap\&,int n, {[}float s=0{]})        & sample n OBPRM nodes, \\
+                                                   & around the given obstacle \\
+			                           & s is required space between \\
+						   & sampled nodes. \\\hline
+						 
+connectNodes(RoadMap\&,int k)                    & connect nodes in map  \\
+                                                  & using k-closest \\
+						  & k is just . \\\hline
+
+CNodeData\& connect2Map(RoadMap\&,Point2d\& s)    & connect point s to the map \\\hline
+
+findPath & \\
+(RoadMap\&,Point2d\& s, Point2d\& g,        &  find a path from s to g \\
+         list$<$Point2d$>$\& path, [bool smooth=T])  & smooth will smooth the path \\\hline
+
+findPath(RoadMap\&, int v1, int v2,                & find a path from v2 to v2\\
+         list$<$Point2d$>$\& path, [bool smooth=T])  & smooth will smooth the path
+
+\end{tabular}
+
+%#-------------------------------------------------------------------
+\subsection{Class: DynPRM}
+
+\subsubsection*{$\star$ Constructor}
+\begin{tabular}{l|l}
+DynPRM              &  dynamic PRM \\
+(Environment\&)
+\end{tabular}
+
+\subsubsection*{$\star$ Member Functions}
+
+\begin{tabular}{l|l}
+%# find a path from s to g, if failed, expand the map
+bool queryPath                                         & find a path from s to g,\\
+(Point2d s,Point2d g,Roadmap dmap,                     & if failed, expand the map\\
+               Roadmap gmap, FlockState shepherd,      & \\
+	       list$<$FlockState*$>$ flock, list$<$Point2d$>$ path) &   \\\hline
+	      
+%# add nodes to the map
+void expandMap                                             & \\
+(Roadmap,FlockState shepherd,list$<$FlockState*$>$ flock) & add nodes to the map \\\hline
+
+%# remove nodes from the map
+void updateMap & \\
+(Roadmap,FlockState shepherd,list$<$FlockState*$>$ flock) & remove nodes from the map 
+
+\end{tabular}
+
+%#-------------------------------------------------------------------
+%# Utility Classes / Functions
+%#-------------------------------------------------------------------
+\section{Utility Classes and Functions}
+
+%#-------------------------------------------------------------------
+
+\subsection{Functions}
+
+\begin{tabular}{l}
+%# check if s is in collision
+bool isCollision(Environment\& e, const FlockState\& s) \\
+check if s is in collision \\\\
+
+%# check if the straight line between s1 and s2 is in collision
+bool isCollision(Environment\& e, const FlockState\& s1, const FlockState\& s2) \\
+check if the straight line between s1 and s2 is in collision \\\\
+
+%# check if the straight line between s and pt is in collision
+bool isCollision(Environment\& e, const FlockState\& s, const Point2d\& pt) \\
+check if the straight line between s and pt is in collision \\\\
+
+%# check if the flock is in collision with the given obstacle.
+bool isCollision(Obs\&,FlockState\&) \\
+check if the flock is in collision with the given obstacle. \\\\
+
+%# push the point to the MA, clearance of the point on MA will
+%# be returned. pt must be collision free.
+double Push2MedialAxis(Environment, FlockState s, Point2d pt) \\
+push the point to the MA, clearance of the point on MA will \\
+be returned. pt must be collision free. \\\\
+
+%# push the pt to free space if pt is in collision.
+Push(Environment, FlockState s, Point2d pt)\\
+push the pt to free space if pt is in collision. \\\\
+
+%# push the pt to free space in given direction if pt is in collision.
+PushInDir(Environment, FlockState s, Vector2 dir, dPoint2d pt)\\
+push the pt to free space in given direction if pt is in collision. \\
+
+\end{tabular}
+
+%#-------------------------------------------------------------------
+\subsection{Class: Point2d and Point3d}
+
+\subsubsection*{$\star$ Constructor}
+\begin{tabular}{l|l}
+Point2d(double,double) & \\\hline
+Point3d(double,double,double) & \\
+\end{tabular}
+
+\subsubsection*{$\star$ Member Functions}
+
+\begin{tabular}{l|l}
+Point* +  Vector* & \\\hline
+Point* -  Point*  & \\\hline
+Point* == Point*  & \\
+\end{tabular}
+
+\subsubsection*{$\star$ Data Members}
+
+\begin{tabular}{l|l}
+x  & \\\hline
+y  & \\\hline
+z  & for Point3d only \\
+\end{tabular}
+
+%#-------------------------------------------------------------------
+\subsection{Class: Vector2d and Vector3d}
+
+\subsubsection*{$\star$ Constructor}
+\begin{tabular}{l|l}
+Vector2d(double,double) & \\\hline
+Vector3d(double,double,double) & \\
+\end{tabular}
+
+\subsubsection*{$\star$ Member Functions}
+
+\begin{tabular}{l|l}
+Vector* normalize(void)  & return normalized vector \\\hline 
+double norm(void)        & lenght of the vector \\\hline 
+double normsqr(void)     & square of the lenght of the vector \\\hline 
+Vector* -  Vector*    & \\\hline 
+Vector* +  Vector*    & \\\hline 
+Vector* *  Vector*    & dot product \\\hline 
+Vector* *  double     & scale \\\hline 
+double  *  Vector*    &  \\\hline 
+Vector* /  double     &  \\\hline 
+Vector* \%  Vector*   & cross product \\\hline 
+Vector* == Vector*    & \\
+\end{tabular}
+
+\subsubsection*{$\star$ Data Members}
+
+\begin{tabular}{l|l}
+x  & \\\hline
+y  & \\\hline
+z  & for Point3d only \\
+\end{tabular}
+
+%#-------------------------------------------------------------------
+%# STL classes
+%#-------------------------------------------------------------------
+
+\section{STL Classes}
+
+Class:
+NodeDataList      %# i.e. list$<$CNodeData\&$>$
+size(void).
+
+Class:
+FlockStateList    %# i.e. list$<$CFlockState\&$>$
+size(void), push\_back(void), empty(void), clear(void), front(void).
+
+Class:
+FSListList        %# i.e. list$<$ list$<$CFlockState\&$>$ $>$
+size(void), push\_back(void), empty(void), clear(void), front(void).
+
+Class:
+FlockStateVector  %# i.e. vector$<$CFlockState\&$>$
+size(void).
+
+Class:
+PtList            %# i.e. list$<$Point2d$>$
+size(void), reverse(void), pop\_back(void), pop\_front(void)
+empty(void), clear(void).
+
+%#-------------------------------------------------------------------
+%# Drawing Classes/Functions
+%#-------------------------------------------------------------------
+
+\section{Drawing Classes and Functions}
+
+
+%#-------------------------------------------------------------------
+%# drawing functions
+
+\subsection{Global Drawing Functions}
+
+\begin{tabular}{l|l}
+%# general opengl drawing
+addDrawObj(glDraw\&) &  \\\hline
+removeDrawObj(glDraw\&) &  \\\hline
+
+%# drawing text
+addDrawInfo(string\& tag, string\& info) & draw text info on screen \\\hline
+removeDrawObj(string\& tag) & \\\hline
+
+drawMap(CRoadMap\&, [bool b\_ShowID=false]) & draw the roadmap [with id] \\\hline
+
+drawPath(list$<$Point2d$>$\&,                   &draw path \\
+         {[}double r=1,bool text=false{]})         & r is radius of the point\\\hline 
+
+drawCircle(doulbe r)                            &draw a cirle with radius given
+\end{tabular}
+
+%#-------------------------------------------------------------------
+\subsection{Class: glDraw}
+
+This is an abstract class.\\
+
+\subsubsection*{$\star$ Constructor}
+\begin{tabular}{l|l}
+glDraw(void)    & abstract class, user should derived this in python \\
+             & and add it using addDrawObj.
+\end{tabular}
+
+\subsubsection*{$\star$ Member Functions}
+
+\begin{tabular}{l|l}
+draw(void)     & not implemented (abstract)
+\end{tabular}
+
+%#-------------------------------------------------------------------
+\subsection{Class: DrawCoverage}
+
+\subsubsection*{$\star$ Constructor}
+\begin{tabular}{l|l}
+DrawCoverage                                   & draw covered/uncovered\\
+(Environment\&, Flock\&,                           & env and flock\\
+ int xsize,int zsize,                          & width and depth \\
+ {[}float H=1,                                   & height \\
+  float R=0,float G=0,float B=0,float A=0.5{]}) & color, RGBA \\
+\end{tabular}
+	 
+\subsubsection*{$\star$ Member Functions}
+
+\begin{tabular}{l|l}
+draw(void)           & \\\hline
+update(Point2d, float value, [float vr=0]) & decrease the value \\
+                                            & of cells in the circle centered \\
+                                            & at give the point and radius \\
+					    & when vr==0, flock's vr is used \\\hline
+float coverageRate(void)    & of covered area \\
+\end{tabular}
+%#-------------------------------------------------------------------
+%# Exported OpenGL functions
+\subsection{Exported OpenGL Functions}
+
+\begin{tabular}{l}
+glTranslated \\\hline
+glRotated \\\hline
+glPushMatrix \\\hline
+glPopMatrix \\\hline
+glVertex3d \\\hline
+glVertex2d \\\hline
+glBegin \\\hline
+glEnd \\\hline
+glutSolidSphere \\\hline
+glutSolidCube \\\hline
+glNormal3d \\\hline
+glColor3d \\\hline
+glDisable \\\hline
+glEnable \\\hline
+glLineWidth \\\hline
+glPointSize \\\hline
+glGenLists \\\hline
+glNewList \\\hline
+glEndList \\\hline
+glCallList \\
+\\
+GLenum.GL\_POINTS \\\hline
+GLenum.GL\_LINES \\\hline
+GLenum.GL\_LINE\_LOOP \\\hline
+GLenum.GL\_LINE\_STRIP \\\hline
+GLenum.GL\_TRIANGLES \\\hline
+GLenum.GL\_LIGHTING \\\hline
+GLenum.GL\_COMPILE \\
+\end{tabular}
+
+
+%#-------------------------------------------------------------------
+%# Composable group behavior classes
+%#-------------------------------------------------------------------
+
+\section{Composable Group Behavior Class}
+This set of classes are used for composable group behaviors.
+
+%#-------------------------------------------------------------------
+\subsection{Class: cgbFlockState}
+
+This flock holds a copy of cgbRoadmap (See Section~\ref{subsec:cgbRoadMap}).
+
+\subsubsection*{$\star$ Constructor}
+\begin{tabular}{|l|l|}\hline
+{\bf glDraw}(Flock\&, RoadMap\&)    & type of the flock\\
+                                   & and a constructed roadmap. \\
+  				  & Can't be an empty map because cgbRoadmap is built from it \\\hline
+\end{tabular}
+
+\subsubsection*{$\star$ Member Functions}
+
+\begin{tabular}{|l|l|} \hline
+cgbState\& {\bf getCurrentState}(void)  & return the current state of the flock. \\
+                                        & cgbState is defined in Section~\ref{subsec:cgbState} \\\hline
+{\bf setCurrentState}(cgbState\&)       & set current state \\\hline
+cgbNodeData\& {\bf getClosestNode}      & get the closest "visible" node in the map \\
+                                        & if no visible node, a virtual node is returned \\
+					& See Section~\ref{subsec:cgbNodeData} for cgbNodeData. \\\hline
+{\bf mergeRoadMapData}(cgbFlockState\&) & merge the learned states with another flock member \\\hline
+
+\end{tabular}
+
+
+
+%#-------------------------------------------------------------------
+\subsection{Class: cgbState}
+\label{subsec:cgbState}
+
+Simulation status of each flock member.
+
+\subsubsection*{$\star$ Constructor}
+\begin{tabular}{|l|l|}\hline
+{\bf cgbState}(FlockState\& s) & "s" is a flock member\\\hline
+\end{tabular}
+
+\subsubsection*{$\star$ Member Functions}
+
+\begin{tabular}{|l|l|} \hline
+BehaviorRule\& {\bf getBehaviorRule}()    &  \\\hline
+{\bf setBehaviorRule}(BehaviorRule\&)     &  \\\hline 
+ForceRule\& {\bf getForceRule}() &  \\\hline
+{\bf setForceRule}(ForceRule\&)  &  \\\hline
+float {\bf getUtility}()    &  \\\hline
+{\bf setUtility}(float)    &  \\\hline
+int {\bf getNodeID}     &  \\\hline
+{\bf setNodeID}(int)     &  \\\hline
+cgbState\& {\bf getPrevious}() & get previous state \\\hline
+{\bf setPrevious}(cgbState\&)  & set previous state  \\\hline
+cgbState\&{\bf getNext}        & get next state \\\hline
+{\bf setNext}(cgbState\&)      & set next state \\\hline
+{\bf isSameState}(cgbState\&)  & check if two states have same node id and visible agents \\\hline
+{\bf updateState}(cgbState\&)  & update behavior in this state if the utility of given state is higher \\\hline
+\end{tabular}
+
+
+%#-------------------------------------------------------------------
+\subsection{Class: cgbNodeData}
+\label{subsec:cgbNodeData}
+
+Node of the cgbRoadMap. Stores a list of states.
+
+\subsubsection*{$\star$ Constructor}
+\begin{tabular}{|l|l|}\hline
+{\bf cgbNodeData}(Point2d\& pos) & "pos" is the position of the node\\\hline
+\end{tabular}
+
+\subsubsection*{$\star$ Member Functions}
+
+\begin{tabular}{|l|l|} \hline
+list$<$cgbState\&$>$\& {\bf getStats}() & get the list of states stored in the node\\\hline
+\end{tabular}
+
+%#-------------------------------------------------------------------
+\subsection{Class: cgbRoadMap}
+\label{subsec:cgbRoadMap}
+
+cgbRoadMap stores a list of regular nodes which are copied from a
+given RoadMap and stores a ``virtual'' node, which stores position
+unrelated states. 
+
+\subsubsection*{$\star$ Constructor}
+\begin{tabular}{|l|l|}\hline
+{\bf cgbRoadMap}(RoadMap\& roadmap) & this map copies every thing from ``roadmap''\\\hline
+\end{tabular}
+
+\subsubsection*{$\star$ Member Functions}
+
+\begin{tabular}{|l|l|} \hline
+%list$<$cgbState\&$>$\& {\bf getStats}() & get the list of states stored in the node\\\hline
+int {\bf addNode}(Node\&)             & \\\hline
+cgbNodeData\& {\bf getNode}(int id)  & get node data in the node with id=``id''\\\hline
+cgbNodeData\& {\bf getVirtualNode}() & \\\hline
+\end{tabular}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Bibliography
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+{
+\bibliographystyle{abbrv}
+\bibliography{bib,graphics,robotics}
+}
+
+\end{document}

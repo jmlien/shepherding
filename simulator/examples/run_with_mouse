@@ -1,0 +1,8 @@
+#!/bin/bash
+#PARAMS="-disable-autonomy -mouse -use-direct-position"
+PARAMS="-disable-autonomy -mouse -no-visual-hints"
+if [ $# -lt 1 ]; then
+    ./main $PARAMS env/test_1.sh
+else
+    ./main $PARAMS $@
+fi

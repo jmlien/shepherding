@@ -1,0 +1,114 @@
+#!/bin/bash
+
+# getboostlib - Generates -l compiler flags for linking to any boost
+#                libraries specified on the command line
+# example:
+#             Command:
+#                 ./getboost  --libs boost_system  boost_python
+#             Output:
+#                 -lboost_system-gcc40-mt-1_35   -lboost_python-gcc40-mt-1_35
+#
+#             Command:
+#                ./getboost   --cflags
+#             Output:
+#                 -I/usr/local/include/boost/
+# ----------------------------
+#
+# This simple script just looks through the obvious directories that contain
+# libraries to find a library that sort of matches the given generic library,
+# based on very basic pattern matching. It then prints the library in an
+# output format suitable for linking via g++. More than one library can be
+# specified during a single run.
+#
+# The reason for the existence of this library is that while the creators of
+# the C++ Boost libraries claim that no linking is required because their
+# libraries are contained entirely in header files, this turns out not to
+# work as stated, at least on my distro. Also, the libraries are not obviously
+# named -- the boost_system and boost_python libraries end up with mangled
+# names such as libboost_system-gcc40-mt.so and libboost_python-gcc40-mt.so,
+# with nary a default symlink like "libboost_system.so" in sight.
+# This is not advantageous for compiling on systems that might not happen
+# to be using the exact same build setup.
+#
+# The gist of the usage of this script is then to translate something like
+# boost_system into the aforementioned libboost_system-gcc40-mt.so, but for
+# the local system (maybe it'll be gcc39? maybe an *Intel* compiler, who
+# knows), but in the correct syntax for linking a library in gcc, such that
+# 
+# $  ./getboostlib  boost_system  boost_python
+#
+# returns the string:   -lboost_system-gcc40-mt -lboost_python-gcc40-mt
+# or something similar which will produce the same effect.
+#
+# Note that if one library name is a prefix of another, there will be
+# problems, since all that's really happening is a translation from
+# ARGUMENT to `libARGUMENT*.so*|head -n1` and then back to the suitable
+# -l version.
+
+
+LIB_DIRS="/usr/local/lib   /usr/lib  $BOOST_MANUAL_LIB_DIR"
+    
+function find_lib_fullpath()
+{
+    for DIR in $LIB_DIRS; do
+        find "$DIR" -name 'lib'"$1"'*so*' -type f
+    done |head -n 1
+}
+
+
+function find_lib()
+{
+    FILE=`find_lib_fullpath "$1"`
+    if [ ! -z "$FILE" ]; then
+        echo `basename "$FILE"`
+    else
+        echo "NO_LIB_FOUND:[$1]"
+    fi
+}
+
+
+function findBoostIncludes() {
+    for i in \
+          /usr/include/boost*/         \
+          /usr/local/include/boost*/   \
+          $BOOST_MANUAL_INCLUDE_DIR;
+      do if [ -d "$i" ]; then
+         echo "-I$i"
+         break
+         fi
+    done
+}
+
+
+##### MAIN PROGRAM #####
+
+doPrintLibs=0;
+doPrintIncludes=0;
+
+while [ $# -gt 0 ]; do
+
+    if [ -z "$1" ]; then
+        echo BLANK ARG
+        exit 1
+    fi
+
+
+    if [ "$1" == "--cflags" ]; then
+        doPrintIncludes=1
+        echo `findBoostIncludes`
+    elif [ "$1" == "--libs" ]; then
+        doPrintLibs=1
+    else
+        LIBS="$LIBS $1"
+    fi
+
+    shift
+done
+
+#echo LIBS: $LIBS
+if [ "$doPrintLibs" -eq 1 ]; then
+    for L in $LIBS; do
+        echo -n -l`find_lib "$L" |sed -e "s/^lib//" -e "s#\.so.*##"` "  "
+    done
+fi
+

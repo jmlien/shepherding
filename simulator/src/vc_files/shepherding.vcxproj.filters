@@ -1,0 +1,371 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ENV">
+      <UniqueIdentifier>{7bcf56dc-88da-4075-a6ff-c4456d654c21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ENV\model">
+      <UniqueIdentifier>{027f0454-d3b1-4be7-8b6a-bd5343596fc1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UTIL">
+      <UniqueIdentifier>{4645879b-7219-43c0-bc42-894a2524015c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Simulator">
+      <UniqueIdentifier>{008404cd-619c-4d1c-a5aa-504649052ecb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PRMS">
+      <UniqueIdentifier>{6ca068d8-9f47-4745-b808-31c7b6080ba0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PRMS\graph">
+      <UniqueIdentifier>{ecd42653-7469-4bf1-a03a-a83349a62e46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui">
+      <UniqueIdentifier>{fa015728-4ff7-46f6-84bb-df4dbf7c1f98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\model_graph">
+      <UniqueIdentifier>{332f0d2c-3388-4836-b497-e78ceaeac954}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\GL">
+      <UniqueIdentifier>{0fdfe6be-ac61-4a23-b62d-dd05eac486ae}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\environment\model\ModelFactory.cpp">
+      <Filter>ENV\model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\environment\model\ModelTool.cpp">
+      <Filter>ENV\model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\environment\model\MovieBYULoader.cpp">
+      <Filter>ENV\model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\environment\model\ObjLoader.cpp">
+      <Filter>ENV\model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\prms\sh_dyPRM.cpp">
+      <Filter>PRMS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\prms\sh_Graph.cpp">
+      <Filter>PRMS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\prms\sh_PRM.cpp">
+      <Filter>PRMS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\prms\sh_Roadmap.cpp">
+      <Filter>PRMS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\environment\sh_BoundingBox.cpp">
+      <Filter>ENV</Filter>
+    </ClCompile>
+    <ClCompile Include="..\environment\sh_CollisionDetection.cpp">
+      <Filter>ENV</Filter>
+    </ClCompile>
+    <ClCompile Include="..\environment\sh_Environment.cpp">
+      <Filter>ENV</Filter>
+    </ClCompile>
+    <ClCompile Include="..\environment\sh_Obs2D.cpp">
+      <Filter>ENV</Filter>
+    </ClCompile>
+    <ClCompile Include="..\environment\sh_PolyhedronModel.cpp">
+      <Filter>ENV</Filter>
+    </ClCompile>
+    <ClCompile Include="..\environment\sh_Robot2D.cpp">
+      <Filter>ENV</Filter>
+    </ClCompile>
+    <ClCompile Include="..\simulator\sh_FlockState.cpp">
+      <Filter>Simulator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\simulator\sh_ForceRules.cpp">
+      <Filter>Simulator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\simulator\sh_LocalInfo.cpp">
+      <Filter>Simulator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\simulator\sh_ObstState.cpp">
+      <Filter>Simulator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\simulator\sh_ParticleSolver.cpp">
+      <Filter>Simulator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\util\Basic.cpp">
+      <Filter>UTIL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\util\Gauss.cpp">
+      <Filter>UTIL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\util\logger.cpp">
+      <Filter>UTIL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\util\mersenne.cpp">
+      <Filter>UTIL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\util\mother.cpp">
+      <Filter>UTIL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\util\Quaternion.cpp">
+      <Filter>UTIL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\util\sh_FlockFunc.cpp">
+      <Filter>UTIL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\util\stoc1.cpp">
+      <Filter>UTIL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\util\stoc2.cpp">
+      <Filter>UTIL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\util\stoc3.cpp">
+      <Filter>UTIL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\util\userintf.cpp">
+      <Filter>UTIL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\sh_sim.cpp" />
+    <ClCompile Include="..\gui\sh_sim_GL.cpp">
+      <Filter>gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\gui\modelgraph\ModelEdge.cpp">
+      <Filter>gui\model_graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\gui\modelgraph\ModelGraph.cpp">
+      <Filter>gui\model_graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\gui\modelgraph\ModelNode.cpp">
+      <Filter>gui\model_graph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\gui\GL\gl_draw.cpp">
+      <Filter>gui\GL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\gui\GL\gl_draw_bbx.cpp">
+      <Filter>gui\GL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\gui\GL\gl_draw_coverage.cpp">
+      <Filter>gui\GL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\gui\GL\gl_draw_env.cpp">
+      <Filter>gui\GL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\gui\GL\gl_draw_flock.cpp">
+      <Filter>gui\GL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\gui\GL\gl_draw_map.cpp">
+      <Filter>gui\GL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\gui\GL\gl_draw_obst.cpp">
+      <Filter>gui\GL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\gui\GL\gl_draw_path.cpp">
+      <Filter>gui\GL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\gui\GL\gl_draw_PolyhedronModel.cpp">
+      <Filter>gui\GL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\gui\GL\gli.cpp">
+      <Filter>gui\GL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\gui\GL\gliDump.cpp">
+      <Filter>gui\GL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\gui\GL\gliFont.cpp">
+      <Filter>gui\GL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\gui\GL\gliTexture.cpp">
+      <Filter>gui\GL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\gui\GL\shadowMap_glsl.cpp">
+      <Filter>gui\GL</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\environment\model\ILoadable.h">
+      <Filter>ENV\model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\environment\model\IModel.h">
+      <Filter>ENV\model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\environment\model\ModelFactory.h">
+      <Filter>ENV\model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\environment\model\ModelTool.h">
+      <Filter>ENV\model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\environment\model\MovieBYULoader.h">
+      <Filter>ENV\model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\environment\model\MovieBYUSaver.h">
+      <Filter>ENV\model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\environment\model\ObjLoader.h">
+      <Filter>ENV\model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\prms\sh_dyPRM.h">
+      <Filter>PRMS</Filter>
+    </ClInclude>
+    <ClInclude Include="..\prms\sh_Graph.h">
+      <Filter>PRMS</Filter>
+    </ClInclude>
+    <ClInclude Include="..\prms\sh_PRM.h">
+      <Filter>PRMS</Filter>
+    </ClInclude>
+    <ClInclude Include="..\prms\sh_Roadmap.h">
+      <Filter>PRMS</Filter>
+    </ClInclude>
+    <ClInclude Include="..\prms\graph\BaseGraph.h">
+      <Filter>PRMS\graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\prms\graph\BasicDefns.h">
+      <Filter>PRMS\graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\prms\graph\Defines.h">
+      <Filter>PRMS\graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\prms\graph\Graph.h">
+      <Filter>PRMS\graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\prms\graph\GraphAlgo.h">
+      <Filter>PRMS\graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\environment\sh_BoundingBox.h">
+      <Filter>ENV</Filter>
+    </ClInclude>
+    <ClInclude Include="..\environment\sh_CollisionDetection.h">
+      <Filter>ENV</Filter>
+    </ClInclude>
+    <ClInclude Include="..\environment\sh_Environment.h">
+      <Filter>ENV</Filter>
+    </ClInclude>
+    <ClInclude Include="..\environment\sh_Obs2D.h">
+      <Filter>ENV</Filter>
+    </ClInclude>
+    <ClInclude Include="..\environment\sh_PolyhedronModel.h">
+      <Filter>ENV</Filter>
+    </ClInclude>
+    <ClInclude Include="..\environment\sh_Robot2D.h">
+      <Filter>ENV</Filter>
+    </ClInclude>
+    <ClInclude Include="..\simulator\sh_BehaviorRules.h">
+      <Filter>Simulator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\simulator\sh_FlockState.h">
+      <Filter>Simulator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\simulator\sh_ForceRules.h">
+      <Filter>Simulator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\simulator\sh_LocalInfo.h">
+      <Filter>Simulator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\simulator\sh_MapBasedFlockState.h">
+      <Filter>Simulator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\simulator\sh_ObstState.h">
+      <Filter>Simulator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\simulator\sh_ParticleSolver.h">
+      <Filter>Simulator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\util\Basic.h">
+      <Filter>UTIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\util\Gauss.h">
+      <Filter>UTIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\util\gettime.h">
+      <Filter>UTIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\util\logger.h">
+      <Filter>UTIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\util\Matrix.h">
+      <Filter>UTIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\util\Point.h">
+      <Filter>UTIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\util\Quaternion.h">
+      <Filter>UTIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\util\randomc.h">
+      <Filter>UTIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\util\RNG.h">
+      <Filter>UTIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\util\sh_FlockFunc.h">
+      <Filter>UTIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\util\stocc.h">
+      <Filter>UTIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\util\Vector.h">
+      <Filter>UTIL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\sh_sim.h" />
+    <ClInclude Include="..\shepherding_base.h" />
+    <ClInclude Include="..\gui\sh_drawclass.h">
+      <Filter>gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\gui\sh_sim_GL.h">
+      <Filter>gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\gui\modelgraph\ModelEdge.h">
+      <Filter>gui\model_graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\gui\modelgraph\ModelGraph.h">
+      <Filter>gui\model_graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\gui\modelgraph\ModelNode.h">
+      <Filter>gui\model_graph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\gui\GL\gl_draw.h">
+      <Filter>gui\GL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\gui\GL\gl_draw_bbx.h">
+      <Filter>gui\GL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\gui\GL\gl_draw_coverage.h">
+      <Filter>gui\GL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\gui\GL\gl_draw_env.h">
+      <Filter>gui\GL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\gui\GL\gl_draw_flock.h">
+      <Filter>gui\GL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\gui\GL\gl_draw_map.h">
+      <Filter>gui\GL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\gui\GL\gl_draw_obst.h">
+      <Filter>gui\GL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\gui\GL\gl_draw_path.h">
+      <Filter>gui\GL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\gui\GL\gl_draw_PolyhedronModel.h">
+      <Filter>gui\GL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\gui\GL\gli.h">
+      <Filter>gui\GL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\gui\GL\gliDump.h">
+      <Filter>gui\GL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\gui\GL\gliFont.h">
+      <Filter>gui\GL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\gui\GL\gliTexture.h">
+      <Filter>gui\GL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\gui\GL\shadowMap_glsl.h">
+      <Filter>gui\GL</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\gui\GL\shadowMap.frag">
+      <Filter>gui\GL</Filter>
+    </None>
+    <None Include="..\gui\GL\shadowMap.vert">
+      <Filter>gui\GL</Filter>
+    </None>
+  </ItemGroup>
+</Project>

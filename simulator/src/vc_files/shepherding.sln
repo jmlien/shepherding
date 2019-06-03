@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "shepherding", "shepherding.vcxproj", "{808F85F3-302B-4674-B5F2-9843C044EA6C}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "behaviors", "behaviors.vcxproj", "{84E3D1B4-08B8-4894-B618-EE93677D8B54}"
+	ProjectSection(ProjectDependencies) = postProject
+		{808F85F3-302B-4674-B5F2-9843C044EA6C} = {808F85F3-302B-4674-B5F2-9843C044EA6C}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{808F85F3-302B-4674-B5F2-9843C044EA6C}.Debug|Win32.ActiveCfg = Debug|Win32
+		{808F85F3-302B-4674-B5F2-9843C044EA6C}.Debug|Win32.Build.0 = Debug|Win32
+		{808F85F3-302B-4674-B5F2-9843C044EA6C}.Release|Win32.ActiveCfg = Release|Win32
+		{808F85F3-302B-4674-B5F2-9843C044EA6C}.Release|Win32.Build.0 = Release|Win32
+		{84E3D1B4-08B8-4894-B618-EE93677D8B54}.Debug|Win32.ActiveCfg = Debug|Win32
+		{84E3D1B4-08B8-4894-B618-EE93677D8B54}.Debug|Win32.Build.0 = Debug|Win32
+		{84E3D1B4-08B8-4894-B618-EE93677D8B54}.Release|Win32.ActiveCfg = Release|Win32
+		{84E3D1B4-08B8-4894-B618-EE93677D8B54}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,219 @@
+#---------------------------------------------------------------------
+# Options
+#---------------------------------------------------------------------
+
+#To disable BOOST
+NO_BOOST := 0
+
+#to disable OpenGL, set GL_ON := 0
+GL_ON := 1
+
+#to disable WIIMOTE
+USE_WIIMOTE := 0
+
+#---------------------------------------------------------------------
+# Detect system type using uname command.
+#
+# On Linux,    uname -s returns 'Linux'
+# On Linux 64, uname -m additionally returns x86_64
+# On Mac OS X, uname -s returns 'Darwin'
+#
+# See discussion at http://osdir.com/ml/gnu.make.bugs/2002-09/msg00003.html
+# Conclusion: instead of using OSTYPE (env var defined in bash), manually
+# set OSTYPE := $(shell uname -msr)
+# In order to avoid confusion, I'm going to just use OSNAME := $(shell uname -s).
+#---------------------------------------------------------------------
+
+OSNAME := $(shell uname -s)
+MACHINE := $(shell uname -m)
+
+ifeq ($(OSNAME),Linux)
+  ifeq ($(MACHINE),x86_64)
+    PLATFORM := LINUX64
+  else
+    PLATFORM := LINUX
+  endif
+else 
+  ifeq ($(OSNAME),Darwin)
+    PLATFORM := MAC_OS_X
+  else
+    PLATFORM := OTHER
+  endif
+endif
+
+#---------------------------------------------------------------------
+# Choose a compiler & its options
+#---------------------------------------------------------------------
+g++ = g++
+CXX = g++
+
+ifeq ($(CXX),icpc)
+  # If the compiler is ICPC, use some extra flags
+  OPTS = -pipe -O3 -MMD -ip -vec-report0 -diag-disable cpu-dispatch
+else 
+  OPTS = -pipe -O3 -MMD -Wall -Wno-deprecated  
+endif
+
+ifeq ($(PLATFORM),MAC_OS_X)
+ OPTS += -DMACOS 
+endif
+
+ifneq ($(ENABLE_LOGGING),0)
+	OPTS += -DENABLE_LOGGING=1
+endif
+
+#-------------------------------------------------------------------
+# Base parameters for INCLUDE and LIB.
+#
+# The next sections after this one add items to INCLUDE and LIB using
+# the += operator. 
+#-------------------------------------------------------------------
+
+INCLUDE = -I. -I$(SH_DIR)/../libs
+LIB = $(LIBS)
+
+#--------------------------------------------------------------------
+# Add Shepherding
+#--------------------------------------------------------------------
+
+SH_SUB_DIRS = environment environment/model simulator \
+              gui gui/GL util prms gui/modelgraph . 
+
+
+SH_INCL = $(addprefix -I$(SH_DIR)/,$(SH_SUB_DIRS))
+
+INCLUDE += $(SH_INCL)
+
+#--------------------------------------------------------------------
+# Add Xlib and OpenGL
+#--------------------------------------------------------------------
+
+ifneq ($(GL_ON),0)
+	OPTS += -DGL_ON=1
+	ifeq ($(PLATFORM),MAC_OS_X)
+   		GL_LIB = -framework OpenGL -framework GLUT -framework Foundation
+		LIB += $(GL_LIB)
+	else
+   		X_LIB  = -Wl,-rpath,/usr/X11R6/lib -L/usr/X11R6/lib -L/usr/local/lib -lXext -lX11 -lXt 
+		GL_LIB = -lglut -lGLU -lGL -lm
+		LIB += $(GL_LIB) $(X_LIB) 
+		OPTS += -DGL_GLEXT_PROTOTYPES=1
+	endif
+endif
+
+#- ------------------------------------------------------------------
+# Add GLEW for openGL extension detection
+#--------------------------------------------------------------------
+
+GLEW_DIR = $(SH_DIR)/../libs/glew
+GLEW_INCL= -I${GLEW_DIR}/include
+ifeq ($(PLATFORM),MAC_OS_X)
+  GLEW_LIB = -L${GLEW_DIR}/lib -lGLEW.osx
+else 
+  ifeq ($(PLATFORM),LINUX64)
+	GLEW_LIB = -L${GLEW_DIR}/lib -lGLEW.linux64
+  else
+	GLEW_LIB = -L${GLEW_DIR}/lib -lGLEW.linux
+  endif
+endif
+
+INCLUDE += $(GLEW_INCL)
+LIB += $(GLEW_LIB)
+
+
+#--------------------------------------------------------------------
+# Add Boost (optional): Used for mouse/tracker control in separate thread
+#--------------------------------------------------------------------
+
+ifndef NO_BOOST # if boost is enabled by user
+
+  SCRIPTS_DIR := $(SH_DIR)/../../scripts
+  GETBOOST   := $(SCRIPTS_DIR)/getboost
+  BOOST_LIBS := `$(GETBOOST) --libs    boost_thread  boost_system`
+  BOOST_INC  := `$(GETBOOST) --cflags`
+
+  ifeq ($(PLATFORM),MAC_OS_X)
+  	  MACPORTSBOOST=/opt/local/var/macports/software/boost/1.35.0_0+darwin_9/opt/local
+	  have_macport_boost := $(wildcard $(MACPORTSBOOST))
+	  ifneq ($(strip $(have_macport_boost)),)
+		  BOOST_LIBS=-L$(MACPORTSBOOST)/lib -lboost_system-mt -lboost_thread-mt
+	 	  BOOST_INC=-I$(MACPORTSBOOST)/include
+	  endif
+  endif
+
+  # Disable Boost if Boost wasn't found on the system
+  MISSING_LIBS := $(shell echo "$(BOOST_LIBS)"|grep 'NO_LIB_FOUND')
+  ifneq ($(MISSING_LIBS),)
+	 NO_BOOST := 1
+  endif
+ 
+endif
+
+# Disable Boost if NO_BOOST environment variable is defined
+ifdef NO_BOOST
+    OPTS += -DNO_BOOST=1
+endif
+
+#- ------------------------------------------------------------------
+# Add Collision Detection lib (RAPID)
+#--------------------------------------------------------------------
+
+RAPID_DIR = $(SH_DIR)/../libs/RAPID
+RAPID_INCL= -I${RAPID_DIR}
+ifeq ($(PLATFORM),MAC_OS_X)
+  RAPID_LIB = -L${RAPID_DIR} -lRAPID.osx
+else 
+  ifeq ($(PLATFORM),LINUX64)
+    RAPID_LIB = -L${RAPID_DIR} -lRAPID.linux64
+  else
+    RAPID_LIB = -L${RAPID_DIR} -lRAPID.linux
+  endif
+endif
+
+INCLUDE += $(RAPID_INCL)
+LIB += $(RAPID_LIB)
+
+#---------------------------------------------------------------------
+# Add WIIMOTE lib
+#--------------------------------------------------------------------
+
+ifndef NO_WIIMOTE
+
+  WIIMOTE_DIR = $(SH_DIR)/../wiimote
+  ifeq ($(USE_WIIMOTE),1)
+	OPTS += -DUSE_WIIMOTE=1
+	WIIMOTE_INCL = -I${WIIMOTE_DIR}
+	WIIMOTE_LIB = -L${WIIMOTE_DIR} -lwiiuse
+	INCLUDE += $(WIIMOTE_INCL)
+	LIB += $(WIIMOTE_LIB)
+  else
+	NO_WIIMOTE:=1
+  endif
+
+endif
+
+# Disable willmote if NO_WIIMOTE environment variable is defined
+ifdef NO_BOOST
+    OPTS += -DUSE_WIIMOTE=0
+endif
+
+#--------------------------------------------------------------------
+# Set CFLAGS
+#--------------------------------------------------------------------
+
+CFLAGS     = $(OPTS) $(INCLUDE) 
+CXXFLAGS   = $(CFLAGS)
+
+#--------------------------------------------------------------------
+# Build Rules
+#--------------------------------------------------------------------
+
+.SUFFIXES: .cpp
+
+.cpp.o: 
+	${CXX} ${CXXFLAGS} -c $< -o $@
+	cat $*.d >> Dependencies
+	-rm -f $*.d
+
+
+
